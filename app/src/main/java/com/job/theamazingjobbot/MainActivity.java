@@ -7,18 +7,25 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import com.job.theamazingjobbot.Messages.BotMessage;
 import com.job.theamazingjobbot.Messages.UserMessage;
+import com.job.theamazingjobbot.bot.BotResponseImpl;
+import com.job.theamazingjobbot.bot.ConversationBot;
+import com.job.theamazingjobbot.bot.JobConversationBot;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView messagesView;
     private EditText editText;
     private MessageViewAdapter mAdapter;
+    private ConversationBot mBot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mBot = new JobConversationBot();
 
         messagesView = findViewById(R.id.message_list);
         mAdapter = new MessageViewAdapter(getLayoutInflater());
@@ -45,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendMessage() {
         mAdapter.addMessage(new UserMessage(this.editText.getText().toString()));
+        this.editText.setText("");
+        mBot.GetMessage("");
+        List<String> responses = mBot.GetMessage("").GetText();
+        for(String e: responses) {
+            mAdapter.addMessage(new BotMessage(e));
+        }
     }
 
     private void askForFile() {

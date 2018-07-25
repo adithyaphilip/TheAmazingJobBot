@@ -14,8 +14,8 @@ public class BotMessage extends Message{
 
   @Override
   public View getAssociatedView(LayoutInflater inflater, ViewGroup group) {
-    View botMessage = inflater.inflate(R.layout.bot_message, null);
-    TextView textView = botMessage.findViewById(R.id.bot_message_view);
+    View botMessage = inflater.inflate(R.layout.user_message, null);
+    TextView textView = botMessage.findViewById(R.id.user_message_view);
     textView.setText(this.getText());
     return botMessage;
   }
